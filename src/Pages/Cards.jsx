@@ -176,7 +176,7 @@ const Cards = () => {
   return (
     <Box
       overflow={"auto"}
-      bg={selectedTask?.level === 1 ? "#ecf0f1" :"#ecf0f1"}
+      bg={selectedTask?.level === 1 ? "#1E272E" :"#1E272E"}
       flexDirection={"column"}
       gap={8}
       py={4}
