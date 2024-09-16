@@ -24,7 +24,7 @@ function Home() {
 
 <HStack mt={20} justifyContent={'center'}  w={'100%'} >
 <Box 
-onClick={()=>navigate("/cards")}
+onClick={()=>navigate("/cards/home")}
   outline={'none'}
   _hover={{
     bg: "#ff6a00", // Using a solid color to enable transition
