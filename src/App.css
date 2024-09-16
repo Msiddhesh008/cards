@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handlee&family=Sofadi+One&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.dancing_script{
+  font-family: "Dancing Script", cursive !important;
+
+}
+.montserrat{
+  font-family: "Montserrat", sans-serif;
+
+}
+
+.handlee-regular{
+  font-family: "Handlee", cursive !important;
+}
+
+.sofadi-one-regular {
+  font-family: "Sofadi One", system-ui !important;
+}
+
+
+
+.button {
+  padding: 10px 20px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #ffffff80;
+  text-shadow: none;
+  background: transparent;
+  cursor: pointer;
+  box-shadow: transparent;
+  border: 1px solid #ffffff80;
+  transition: 0.5s ease;
+  user-select: none;
+}
+
+#btn:hover,
+:focus {
+  color: #ffffff;
+  background: red;
+  border: 1px solid red;
+  text-shadow: 0 0 5px red, 0 0 10px red, 0 0 37px #ffffff;
+  box-shadow: 0px 1px 1px red, 0 0 8px red, 0 0 11px red, 0 0 50px red;
+}
