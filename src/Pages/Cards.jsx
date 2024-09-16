@@ -73,7 +73,7 @@ const Cards = () => {
     const task = availableTasks[randomIndex];
 
     // Update rotation based on pusher (king or queen)
-    const rotationAngle = pusher === "king" ? -185 : 185; // Rotate up for king, down for queen
+    const rotationAngle = pusher === "king" ? -182 : 182; // Rotate up for king, down for queen
     setRotation(rotation + rotationAngle); // Accumulate rotation
 
     // Remove the selected task from the available tasks list
