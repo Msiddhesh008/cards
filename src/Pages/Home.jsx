@@ -15,6 +15,8 @@ function Home() {
   bg="linear-gradient(360deg, #7c0000 0%, #3e0000 74%)"
   pt={10}
   border={"0px solid #fff"}
+
+  overflow={"auto"}
   
 >
   {/* <Image position={'absolute'} src={frame} left={0} top={0} w={'100%'} h={'100%'} /> */}

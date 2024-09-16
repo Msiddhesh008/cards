@@ -137,7 +137,7 @@ const Cards = () => {
 
 
   const [availableTasks, setAvailableTasks] = useState([...cardsLevelOne]);
-  const [selectedTask, setSelectedTask] = useState(null);
+  const [selectedTask, setSelectedTask] = useState({level:1});
   const [rotation, setRotation] = useState(0); // State for rotation angle
 
   const getRandomTask = (pusher) => {
@@ -153,7 +153,7 @@ const Cards = () => {
     const task = availableTasks[randomIndex];
 
     // Update rotation based on pusher (king or queen)
-    const rotationAngle = pusher === "king" ? -180 : 180; // Rotate up for king, down for queen
+    const rotationAngle = pusher === "king" ? -4380 : 4380; // Rotate up for king, down for queen
     setRotation(rotation + rotationAngle); // Accumulate rotation
 
     // Remove the selected task from the available tasks list
@@ -208,26 +208,41 @@ const Cards = () => {
 
       {/* Card with dynamic rotation */}
       <Box
-        transition={"all 0.5s ease"} // Smooth transition for the rotation
+        transition={"all 5.5s ease"} // Smooth transition for the rotation
         transform={`rotate(${rotation}deg)`} // Apply rotation state
         position={"relative"}
-        p={4}
+        p={2}
         display={"flex"}
         flexDirection={"column"}
         justifyContent={"start"}
-        bg={selectedTask?.level === 1 ? "#fff" :"#000"}
-        color={selectedTask?.level === 1 ? "#000":"#fff"}
+        bg={selectedTask?.level === 1  ? "#fff" :"#000" }
+        color={selectedTask?.level === 1  ? "#000":"#fff"}
         boxShadow={"lg"}
         rounded={"xl"}
-        w={280}
-        h={400}
+        w={250}
+        h={350}
+
+        // bg={" linear-gradient(316deg, #310e68 0%, #5f0f40 74%)"}
+
+//         background-color: #310e68;
+// background-image: linear-gradient(316deg, #310e68 0%, #5f0f40 74%);
       >
+        <Box 
+        p={2.5}
+        w={'100%'}
+        h={'100%'}
+        border={'1.5px solid #b71540'}
+        rounded={'lg'}
+        display={"flex"}
+        flexDirection={"column"}
+        justifyContent={"start"} >
         <Text
           as={"span"}
-          textTransform={"capitalize"}
+          textTransform={"uppercase"}
           className="sofadi-one-regular"
           fontWeight={600}
-          fontSize={"3xl"}
+          fontSize={"2xl"}
+          zIndex={2}
         >
           {selectedTask?.task}
         </Text>
@@ -235,11 +250,13 @@ const Cards = () => {
           as={"span"}
           textTransform={"capitalize"}
           className="sofadi-one-regular"
-          fontSize={"2xl"}
+          fontSize={"xl"}
           color={"#b71540"}
+          zIndex={2}
         >
           LAST TASK TWICE
         </Text>
+        </Box>
         <Image
           transform={"rotate(150deg)"}
           position={"absolute"}
@@ -247,6 +264,7 @@ const Cards = () => {
           right={0}
           width={40}
           src={floral}
+          opacity={0.5}
         />
       </Box>
 
@@ -254,7 +272,7 @@ const Cards = () => {
       <Box
         //   as="button"
         onClick={() => getRandomTask("king")}
-        transition={"all 0.5s"}
+        transition={"all 1.5s"}
         _focus={{ bg: "#000", outline: "none", border: "none" }}
         _hover={{ bg: "#000", outline: "none", border: "none" }}
         shadow={"md"}

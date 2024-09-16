@@ -19,11 +19,11 @@ import {
     const getBackgroundColor = () => {
       switch (level) {
         case 1:
-          return '#ff6a00'; // Lighter red for level 1
+          return '#3e0000'; // Lighter red for level 1
         case 2:
-          return '#000'; // Tomato color for level 2
+          return '#3e0000'; // Tomato color for level 2
         case 3:
-          return '#7c0000'; // Red for level 3
+          return '#3e0000'; // Red for level 3
         case 4:
           return '#3e0000'; // Darker red for level 4
         case 5:
@@ -76,6 +76,9 @@ import {
           <ModalContent 
               h="100vh" // Full height
               w="100vw" // Full width
+              border={'2px solid #000'}
+              outline={'none'}
+              rounded={0}
               >
             <ModalBody 
               onDoubleClick={onClose} 
@@ -85,6 +88,7 @@ import {
               alignItems={'center'} 
               flexDirection={'column'} 
               bg={getBackgroundColor()} // Dynamic background color
+              
 
             >
               <Image w={'80%'} src={getImageForLevel()} /> {/* Dynamic image */}
