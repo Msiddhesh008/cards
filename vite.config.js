@@ -16,10 +16,10 @@ export default defineConfig({
         enabled: true,
       },
       manifest: {
-        name: "Re Group",
-        short_name: "RG",
+        name: "Erocard",
+        short_name: "EC",
         description: "Join your community now",
-        start_url: "/",
+        start_url: "https://msiddhesh008.github.io/cards/",
         display: "standalone",
         theme_color: "#222935",
         background_color: "#222935",
