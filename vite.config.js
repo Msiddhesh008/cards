@@ -19,7 +19,7 @@ export default defineConfig({
         name: "Erocard",
         short_name: "EC",
         description: "Join your community now",
-        start_url: "https://msiddhesh008.github.io/cards/",
+        start_url: "/",
         display: "standalone",
         theme_color: "#222935",
         background_color: "#222935",
@@ -48,5 +48,5 @@ export default defineConfig({
       },
     }),
   ],
-  base: "/cards",
+  base: "/cards/",
 })
