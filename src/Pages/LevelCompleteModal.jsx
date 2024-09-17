@@ -8,7 +8,7 @@ import {
     Text,
   } from '@chakra-ui/react'
   import levelone from '../assets/level1.png'
-  import leveltwo from '../assets/level5.png'
+  import leveltwo from '../assets/level2.png'
   import levelthree from '../assets/level3.png'
   import levelfour from '../assets/level4.png'
   import levelfive from '../assets/level5.png'

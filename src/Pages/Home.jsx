@@ -47,7 +47,7 @@ onClick={()=>navigate("/cards/home")}
   <Box flexDirection={'column'} position={'absolute'} alignItems={'center'} display={'flex'} justifyContent={'center'}  bottom={0} left={0} w={"100%"} >
     <Image w={48} src={vector} mb={6} />
 
-    <Text fontSize={'10px'} pb={0} mt={6} color={'#fff'} bg={'black'} w={'100%'} textAlign={'center'}>Powered by : Miss Bhagudi 💋</Text>
+    {/* <Text fontSize={'10px'} pb={0} mt={6} color={'#fff'} bg={'black'} w={'100%'} textAlign={'center'}>Powered by : Miss Bhagudi 💋</Text> */}
   </Box>
 
 </Box>

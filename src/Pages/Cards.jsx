@@ -5,11 +5,10 @@ import { GiImperialCrown, GiQueenCrown } from "react-icons/gi";
 import LevelCompleteModal from "./LevelCompleteModal";
 
 const Cards = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const cardsLevelOne = [
     {
       id: 1,
-
       level: 1,
       task: "Complete the monthly financial report",
       elseTask: "Review last month's budget allocations",
@@ -69,7 +68,6 @@ const Cards = () => {
       elseTask: "Draft the outline for the next publication",
     },
   ];
-
 
   const cardsLevelTwo = [
     {
@@ -135,16 +133,15 @@ const Cards = () => {
     },
   ];
 
-
   const [availableTasks, setAvailableTasks] = useState([...cardsLevelOne]);
-  const [selectedTask, setSelectedTask] = useState({level:1});
+  const [selectedTask, setSelectedTask] = useState({ level: 2 });
   const [rotation, setRotation] = useState(0); // State for rotation angle
 
   const getRandomTask = (pusher) => {
     if (availableTasks.length === 0) {
       //   alert('No more tasks available!');
-    //   setAvailableTasks([...cardsLevelOne]);
-    onOpen()
+      //   setAvailableTasks([...cardsLevelOne]);
+      onOpen();
       return;
     }
 
@@ -166,17 +163,15 @@ const Cards = () => {
     setAvailableTasks(newAvailableTasks);
   };
 
-  const handleOnClose=()=>{
-    setAvailableTasks(cardsLevelTwo)
-    onClose()
-  }
-
-  
+  const handleOnClose = () => {
+    setAvailableTasks(cardsLevelTwo);
+    onClose();
+  };
 
   return (
     <Box
       overflow={"auto"}
-      bg={selectedTask?.level === 1 ? "#1E272E" :"#1E272E"}
+      bg={selectedTask?.level === 2 ? "#121212" : "#121212"}
       flexDirection={"column"}
       gap={8}
       py={4}
@@ -215,56 +210,106 @@ const Cards = () => {
         display={"flex"}
         flexDirection={"column"}
         justifyContent={"start"}
-        bg={selectedTask?.level === 1  ? "#fff" :"#000" }
-        color={selectedTask?.level === 1  ? "#000":"#fff"}
+        // bg={selectedTask?.level === 2  ? "#fff" :"#000" }
+        // color={selectedTask?.level === 2  ? "#000":"#fff"}
         boxShadow={"lg"}
         rounded={"xl"}
         w={250}
         h={350}
+       
+        bg={
+          selectedTask?.level === 1
+            ? "#fff" // Background color for level 1
+            : selectedTask?.level === 2
+            ? "#F79F1F" // Background color for level 2
+            : selectedTask?.level === 3
+            ? "#000" // Background color for level 3
+            : selectedTask?.level === 4
+            ? "#880808" // Background color for level 4
+            : "#000" // Background color for level 5 or higher
+        }
+
+        className={selectedTask?.level === 2 ? "gold":null}
 
         // bg={" linear-gradient(316deg, #310e68 0%, #5f0f40 74%)"}
 
-//         background-color: #310e68;
-// background-image: linear-gradient(316deg, #310e68 0%, #5f0f40 74%);
+        //         background-color: #310e68;
+        // background-image: linear-gradient(316deg, #310e68 0%, #5f0f40 74%);
       >
-        <Box 
-        p={2.5}
-        w={'100%'}
-        h={'100%'}
-        border={'1.5px solid #b71540'}
-        rounded={'lg'}
-        display={"flex"}
-        flexDirection={"column"}
-        justifyContent={"start"} >
-        <Text
-          as={"span"}
-          textTransform={"uppercase"}
-          className="sofadi-one-regular"
-          fontWeight={600}
-          fontSize={"2xl"}
-          zIndex={2}
+        <Box
+          p={2.5}
+          w={"100%"}
+          h={"100%"}
+          border={
+            selectedTask?.level === 1
+              ? "1.5px solid #b71540" // Background color for level 1
+              : selectedTask?.level === 2
+              ? "1.5px solid #000" // Background color for level 2
+              : selectedTask?.level === 3
+              ? "1.5px solid #b71540" // Background color for level 3
+              : selectedTask?.level === 4
+              ? "1.5px solid #fff" // Background color for level 4
+              : "2px solid #880808" // Background color for level 5 or higher
+          }
+          rounded={"lg"}
+          display={"flex"}
+          flexDirection={"column"}
+          justifyContent={"start"}
         >
-          {selectedTask?.task}
-        </Text>
-        <Text
-          as={"span"}
-          textTransform={"capitalize"}
-          className="sofadi-one-regular"
-          fontSize={"xl"}
-          color={"#b71540"}
-          zIndex={2}
-        >
-          LAST TASK TWICE
-        </Text>
+          <Text
+            as={"span"}
+            textTransform={"uppercase"}
+            className="sofadi-one-regular"
+            fontWeight={600}
+            fontSize={"2xl"}
+            zIndex={2}
+            backgroundImage={selectedTask?.level === 5 ?"repeating-linear-gradient(to right, #a2682a 0%, #be8c3c 8%, #be8c3c 18%, #d3b15f 27%, #faf0a0 35%, #ffffc2 40%, #faf0a0 50%, #d3b15f 58%, #be8c3c 67%, #b17b32 77%, #bb8332 83%, #d4a245 88%, #e1b453 93%, #a4692a 100%)":""}
+            bgClip="text"
+
+            color={
+              selectedTask?.level === 1
+                ? "#000" // Background color for level 1
+                : selectedTask?.level === 2
+                ? "#000" // Background color for level 2
+                : selectedTask?.level === 3
+                ? "#fff" // Background color for level 3
+                : selectedTask?.level === 4
+                ? "#fff" // Background color for level 4
+                : null // Background color for level 5 or higher
+            }
+          >
+            {selectedTask?.task}
+          </Text>
+          <Text
+            as={"span"}
+            textTransform={"capitalize"}
+            className="sofadi-one-regular"
+            fontSize={"xl"}
+            zIndex={2}
+            fontWeight={600}
+            color={
+              selectedTask?.level === 1
+                ? "#b71540" // Background color for level 1
+                : selectedTask?.level === 2
+                ? "#fff" // Background color for level 2
+                : selectedTask?.level === 3
+                ? "#b71540" // Background color for level 3
+                : selectedTask?.level === 4
+                ? "#f5b7b1" // Background color for level 4
+                : "#880808" // Background color for level 5 or higher
+            }
+          >
+            LAST TASK TWICE
+          </Text>
         </Box>
         <Image
           transform={"rotate(150deg)"}
           position={"absolute"}
           bottom={-42}
           right={0}
-          width={40}
+          width={36}
           src={floral}
-          opacity={0.5}
+          opacity={1.5}
         />
       </Box>
 
@@ -287,7 +332,12 @@ const Cards = () => {
       >
         <GiImperialCrown fontSize={47} />
       </Box>
-      <LevelCompleteModal level={selectedTask?.level} onClose={handleOnClose} isOpen={isOpen} onOpen={onOpen} />
+      <LevelCompleteModal
+        level={selectedTask?.level}
+        onClose={handleOnClose}
+        isOpen={isOpen}
+        onOpen={onOpen}
+      />
     </Box>
   );
 };

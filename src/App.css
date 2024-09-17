@@ -8,7 +8,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Sofadi One", system-ui ;
+  /* font-family: "Sofadi One", system-ui ; */
 }
 .dancing_script{
   font-family: "Dancing Script", cursive !important;
@@ -25,6 +25,7 @@
 
 .sofadi-one-regular {
   font-family: "Sofadi One", system-ui !important;
+  /* font-family: "Handlee", cursive !important; */
 }
 
 
@@ -52,4 +53,10 @@
   border: 1px solid red;
   text-shadow: 0 0 5px red, 0 0 10px red, 0 0 37px #ffffff;
   box-shadow: 0px 1px 1px red, 0 0 8px red, 0 0 11px red, 0 0 50px red;
+}
+
+
+.gold{
+  background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
+                radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%) !important;
 }
