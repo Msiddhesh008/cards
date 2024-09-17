@@ -1,12 +1,42 @@
 import { Box, Button, Image, Text, useDisclosure } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import floral from "../assets/floral.png";
 import { GiImperialCrown, GiQueenCrown } from "react-icons/gi";
 import LevelCompleteModal from "./LevelCompleteModal";
 import Arrow from "../Components/Arrow";
 
+
+// Function to save tasks and the selected task to localStorage
+const saveToLocalStorage = (tasks, selectedTask) => {
+  localStorage.setItem("availableTasks", JSON.stringify(tasks));
+  localStorage.setItem("selectedTask", JSON.stringify(selectedTask));
+};
+
+// Function to load tasks and the selected task from localStorage
+const loadFromLocalStorage = () => {
+  const savedTasks = localStorage.getItem("availableTasks");
+  const savedSelectedTask = localStorage.getItem("selectedTask");
+  
+  return {
+    tasks: Array.isArray(JSON.parse(savedTasks)) ? JSON.parse(savedTasks) : [], // Ensure tasks is an array
+    selectedTask: savedSelectedTask ? JSON.parse(savedSelectedTask) : null,
+  };
+};
+
 const Cards = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [availableTasks, setAvailableTasks] = useState([]);
+  const [selectedTask, setSelectedTask] = useState({ level: 1 });
+  const [rotation, setRotation] = useState(0); // State for rotation angle
+
+
+
+
+
+
+
+
+
   const cardsLevelOne = [
     {
       id: 1,
@@ -335,49 +365,113 @@ const Cards = () => {
   ];
 
 
-  const [availableTasks, setAvailableTasks] = useState([...cardsLevelOne]);
-  const [selectedTask, setSelectedTask] = useState({ level: 1 });
-  const [rotation, setRotation] = useState(0); // State for rotation angle
 
-  const getRandomTask = (pusher) => {
-    if (availableTasks.length === 0) {
-      //   alert('No more tasks available!');
-      //   setAvailableTasks([...cardsLevelOne]);
-      onOpen();
-      return;
-    }
-
-    // Choose a random task
-    const randomIndex = Math.floor(Math.random() * availableTasks.length);
-    const task = availableTasks[randomIndex];
-
-    // Update rotation based on pusher (king or queen)
-    const rotationAngle = pusher === "king" ? -4380 : 4380; // Rotate up for king, down for queen
-    setRotation(rotation + rotationAngle); // Accumulate rotation
-
-    // Remove the selected task from the available tasks list
-    const newAvailableTasks = availableTasks.filter(
-      (_, index) => index !== randomIndex
-    );
-
-    // Update state
-    setSelectedTask(task);
-    setAvailableTasks(newAvailableTasks);
+  const levelMap = {
+    1: cardsLevelOne,
+    2: cardsLevelTwo,
+    3: cardsLevelThree,
+    4: cardsLevelFour,
+    5: cardsLevelFive,
   };
+
+
+
+
+  // Load tasks and the selected task from localStorage on component mount
+useEffect(() => {
+  const { tasks, selectedTask } = loadFromLocalStorage();
+  if (Array.isArray(tasks)) {
+    setAvailableTasks(tasks.length > 0 ? tasks : cardsLevelOne);
+  } else {
+    setAvailableTasks(cardsLevelOne);
+  }
+  setSelectedTask(selectedTask || { level: 1 });
+}, []);
+
+
+const getRandomTask = (pusher) => {
+  if (!Array.isArray(availableTasks) || availableTasks.length === 0) {
+    onOpen();
+    return;
+  }
+
+  // Choose a random task
+  const randomIndex = Math.floor(Math.random() * availableTasks.length);
+  const task = availableTasks[randomIndex];
+
+  // Update rotation based on pusher (king or queen)
+  const rotationAngle = pusher === "king" ? -4380 : 4380;
+  setRotation(rotation + rotationAngle);
+
+  // Remove the selected task from the available tasks list
+  const newAvailableTasks = availableTasks.filter(
+    (_, index) => index !== randomIndex
+  );
+
+  setSelectedTask(task);
+  setAvailableTasks(newAvailableTasks);
+
+  saveToLocalStorage(newAvailableTasks, task);
+};
+
+  // const getRandomTask = (pusher) => {
+  //   if (availableTasks.length === 0) {
+  //     //   alert('No more tasks available!');
+  //     //   setAvailableTasks([...cardsLevelOne]);
+  //     onOpen();
+  //     return;
+  //   }
+
+  //   // Choose a random task
+  //   const randomIndex = Math.floor(Math.random() * availableTasks.length);
+  //   const task = availableTasks[randomIndex];
+
+  //   // Update rotation based on pusher (king or queen)
+  //   const rotationAngle = pusher === "king" ? -4380 : 4380; // Rotate up for king, down for queen
+  //   setRotation(rotation + rotationAngle); // Accumulate rotation
+
+  //   // Remove the selected task from the available tasks list
+  //   const newAvailableTasks = availableTasks.filter(
+  //     (_, index) => index !== randomIndex
+  //   );
+
+  //   // Update state
+  //   setSelectedTask(task);
+  //   setAvailableTasks(newAvailableTasks);
+  // };
+
+  // const handleOnClose = () => {
+  //   if (selectedTask?.level === 1) {
+  //     setAvailableTasks(cardsLevelTwo);
+  //   }else if(selectedTask?.level === 2){
+  //     setAvailableTasks(cardsLevelThree);
+  //   }else if(selectedTask?.level === 3){
+  //     setAvailableTasks(cardsLevelFour);
+  //   }else if(selectedTask?.level === 4){
+  //     setAvailableTasks(cardsLevelFive);
+  //   }
+  //   onClose();
+  // };
 
   const handleOnClose = () => {
-    if (selectedTask?.level === 1) {
-      setAvailableTasks(cardsLevelTwo);
-    }else if(selectedTask?.level === 2){
-      setAvailableTasks(cardsLevelThree);
-    }else if(selectedTask?.level === 3){
-      setAvailableTasks(cardsLevelFour);
-    }else if(selectedTask?.level === 4){
-      setAvailableTasks(cardsLevelFive);
+    const nextLevel = selectedTask?.level + 1;
+  
+    // Retrieve tasks for the next level from the levelMap
+    const nextLevelTasks = levelMap[nextLevel] || [];
+  
+    if (nextLevelTasks.length > 0) {
+      setAvailableTasks(nextLevelTasks);
+      setSelectedTask({ level: nextLevel }); // Reset selectedTask for the next level
+    } else {
+      console.error("No tasks available for the next level");
     }
+  
+    // Close the modal
     onClose();
   };
+  
 
+  
   return (
     <Box
       overflow={"auto"}
