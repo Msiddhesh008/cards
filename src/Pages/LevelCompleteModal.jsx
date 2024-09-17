@@ -19,13 +19,13 @@ import {
     const getBackgroundColor = () => {
       switch (level) {
         case 1:
-          return '#3e0000'; // Lighter red for level 1
+          return '#fff'; // Lighter red for level 1
         case 2:
-          return '#3e0000'; // Tomato color for level 2
+          return 'radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%)'
         case 3:
-          return '#3e0000'; // Red for level 3
+          return '#000'; // Red for level 3
         case 4:
-          return '#3e0000'; // Darker red for level 4
+          return '#880808'; // Darker red for level 4
         case 5:
           return '#000'; // Darkest red for level 5
         default:
@@ -91,10 +91,10 @@ import {
               
 
             >
-              <Image w={'80%'} src={getImageForLevel()} /> {/* Dynamic image */}
-              <Text fontSize={'3xl'} color={level === 1 ? "#fff" : "#000"}> {/* Text color changes for level 1 */}
-                {getQuoteForLevel()} {/* Dynamic quote */}
-              </Text>
+              {/* <Image w={'80%'} src={getImageForLevel()} /> Dynamic image */}
+              {/* <Text fontSize={'3xl'} color={level === 1 ? "#fff" : "#000"}> 
+                {getQuoteForLevel()} 
+              </Text> */}
             </ModalBody>
           </ModalContent>
         </Modal>

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import floral from "../assets/floral.png";
 import { GiImperialCrown, GiQueenCrown } from "react-icons/gi";
 import LevelCompleteModal from "./LevelCompleteModal";
+import Arrow from "../Components/Arrow";
 
 const Cards = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -133,8 +134,209 @@ const Cards = () => {
     },
   ];
 
+
+
+
+  const cardsLevelThree = [
+    {
+      id: 1,
+
+      level: 3,
+      task: "Complete the monthly financial report",
+      elseTask: "Review last month's budget allocations",
+    },
+    {
+      id: 2,
+      level: 3,
+      task: "Prepare presentation for client meeting",
+      elseTask: "Email the final draft to the marketing team",
+    },
+    {
+      id: 3,
+      level: 3,
+      task: "Fix UI bug on the user profile page",
+      elseTask: "Cross-test on different browsers for compatibility",
+    },
+    {
+      id: 4,
+      level: 3,
+      task: "Respond to customer feedback on support tickets",
+      elseTask: "Follow up on unresolved high-priority issues",
+    },
+    {
+      id: 5,
+      level: 3,
+      task: "Organize team building event for next month",
+      elseTask: "Book a venue and send out invitations",
+    },
+    {
+      id: 6,
+      level: 3,
+      task: "Update product documentation with new features",
+      elseTask: "Review technical changes with the dev team",
+    },
+    {
+      id: 7,
+      level: 3,
+      task: "Analyze social media engagement metrics",
+      elseTask: "Draft report on insights and growth strategies",
+    },
+    {
+      id: 8,
+      level: 3,
+      task: "Backup database and archive old data",
+      elseTask: "Verify that backups were successfully completed",
+    },
+    {
+      id: 9,
+      level: 3,
+      task: "Schedule a one-on-one with team members",
+      elseTask: "Discuss project progress and individual goals",
+    },
+    {
+      id: 10,
+      level: 3,
+      task: "Research industry trends for quarterly newsletter",
+      elseTask: "Draft the outline for the next publication",
+    },
+  ];
+
+
+
+
+  const cardsLevelFour = [
+    {
+      id: 1,
+
+      level: 4,
+      task: "Complete the monthly financial report",
+      elseTask: "Review last month's budget allocations",
+    },
+    {
+      id: 2,
+      level: 4,
+      task: "Prepare presentation for client meeting",
+      elseTask: "Email the final draft to the marketing team",
+    },
+    {
+      id: 3,
+      level: 4,
+      task: "Fix UI bug on the user profile page",
+      elseTask: "Cross-test on different browsers for compatibility",
+    },
+    {
+      id: 4,
+      level: 4,
+      task: "Respond to customer feedback on support tickets",
+      elseTask: "Follow up on unresolved high-priority issues",
+    },
+    {
+      id: 5,
+      level: 4,
+      task: "Organize team building event for next month",
+      elseTask: "Book a venue and send out invitations",
+    },
+    {
+      id: 6,
+      level: 4,
+      task: "Update product documentation with new features",
+      elseTask: "Review technical changes with the dev team",
+    },
+    {
+      id: 7,
+      level: 4,
+      task: "Analyze social media engagement metrics",
+      elseTask: "Draft report on insights and growth strategies",
+    },
+    {
+      id: 8,
+      level: 4,
+      task: "Backup database and archive old data",
+      elseTask: "Verify that backups were successfully completed",
+    },
+    {
+      id: 9,
+      level: 4,
+      task: "Schedule a one-on-one with team members",
+      elseTask: "Discuss project progress and individual goals",
+    },
+    {
+      id: 10,
+      level: 4,
+      task: "Research industry trends for quarterly newsletter",
+      elseTask: "Draft the outline for the next publication",
+    },
+  ];
+
+
+
+  const cardsLevelFive = [
+    {
+      id: 1,
+
+      level: 5,
+      task: "Complete the monthly financial report",
+      elseTask: "Review last month's budget allocations",
+    },
+    {
+      id: 2,
+      level: 5,
+      task: "Prepare presentation for client meeting",
+      elseTask: "Email the final draft to the marketing team",
+    },
+    {
+      id: 3,
+      level: 5,
+      task: "Fix UI bug on the user profile page",
+      elseTask: "Cross-test on different browsers for compatibility",
+    },
+    {
+      id: 4,
+      level: 5,
+      task: "Respond to customer feedback on support tickets",
+      elseTask: "Follow up on unresolved high-priority issues",
+    },
+    {
+      id: 5,
+      level: 5,
+      task: "Organize team building event for next month",
+      elseTask: "Book a venue and send out invitations",
+    },
+    {
+      id: 6,
+      level: 5,
+      task: "Update product documentation with new features",
+      elseTask: "Review technical changes with the dev team",
+    },
+    {
+      id: 7,
+      level: 5,
+      task: "Analyze social media engagement metrics",
+      elseTask: "Draft report on insights and growth strategies",
+    },
+    {
+      id: 8,
+      level: 5,
+      task: "Backup database and archive old data",
+      elseTask: "Verify that backups were successfully completed",
+    },
+    {
+      id: 9,
+      level: 5,
+      task: "Schedule a one-on-one with team members",
+      elseTask: "Discuss project progress and individual goals",
+    },
+    {
+      id: 10,
+      level: 5,
+      task: "Research industry trends for quarterly newsletter",
+      elseTask: "Draft the outline for the next publication",
+    },
+  ];
+
+
   const [availableTasks, setAvailableTasks] = useState([...cardsLevelOne]);
-  const [selectedTask, setSelectedTask] = useState({ level: 2 });
+  const [selectedTask, setSelectedTask] = useState({ level: 1 });
   const [rotation, setRotation] = useState(0); // State for rotation angle
 
   const getRandomTask = (pusher) => {
@@ -164,7 +366,15 @@ const Cards = () => {
   };
 
   const handleOnClose = () => {
-    setAvailableTasks(cardsLevelTwo);
+    if (selectedTask?.level === 1) {
+      setAvailableTasks(cardsLevelTwo);
+    }else if(selectedTask?.level === 2){
+      setAvailableTasks(cardsLevelThree);
+    }else if(selectedTask?.level === 3){
+      setAvailableTasks(cardsLevelFour);
+    }else if(selectedTask?.level === 4){
+      setAvailableTasks(cardsLevelFive);
+    }
     onClose();
   };
 
@@ -216,6 +426,7 @@ const Cards = () => {
         rounded={"xl"}
         w={250}
         h={350}
+        
        
         bg={
           selectedTask?.level === 1
@@ -301,6 +512,8 @@ const Cards = () => {
           >
             LAST TASK TWICE
           </Text>
+
+<Arrow/>
         </Box>
         <Image
           transform={"rotate(150deg)"}
@@ -311,7 +524,9 @@ const Cards = () => {
           src={floral}
           opacity={1.5}
         />
+
       </Box>
+      
 
       {/* King Button */}
       <Box
@@ -332,6 +547,8 @@ const Cards = () => {
       >
         <GiImperialCrown fontSize={47} />
       </Box>
+
+      
       <LevelCompleteModal
         level={selectedTask?.level}
         onClose={handleOnClose}
