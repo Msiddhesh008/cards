@@ -4,7 +4,7 @@ import floral from "../assets/floral.png";
 import { GiImperialCrown, GiQueenCrown } from "react-icons/gi";
 import LevelCompleteModal from "./LevelCompleteModal";
 import Arrow from "../Components/Arrow";
-
+import { OPACITY_ON_LOAD } from "../Components/animations";
 
 // Function to save tasks and the selected task to localStorage
 const saveToLocalStorage = (tasks, selectedTask) => {
@@ -16,7 +16,7 @@ const saveToLocalStorage = (tasks, selectedTask) => {
 const loadFromLocalStorage = () => {
   const savedTasks = localStorage.getItem("availableTasks");
   const savedSelectedTask = localStorage.getItem("selectedTask");
-  
+
   return {
     tasks: Array.isArray(JSON.parse(savedTasks)) ? JSON.parse(savedTasks) : [], // Ensure tasks is an array
     selectedTask: savedSelectedTask ? JSON.parse(savedSelectedTask) : null,
@@ -28,14 +28,6 @@ const Cards = () => {
   const [availableTasks, setAvailableTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState({ level: 1 });
   const [rotation, setRotation] = useState(0); // State for rotation angle
-
-
-
-
-
-
-
-
 
   const cardsLevelOne = [
     {
@@ -164,9 +156,6 @@ const Cards = () => {
     },
   ];
 
-
-
-
   const cardsLevelThree = [
     {
       id: 1,
@@ -230,9 +219,6 @@ const Cards = () => {
       elseTask: "Draft the outline for the next publication",
     },
   ];
-
-
-
 
   const cardsLevelFour = [
     {
@@ -298,8 +284,6 @@ const Cards = () => {
     },
   ];
 
-
-
   const cardsLevelFive = [
     {
       id: 1,
@@ -364,8 +348,6 @@ const Cards = () => {
     },
   ];
 
-
-
   const levelMap = {
     1: cardsLevelOne,
     2: cardsLevelTwo,
@@ -374,45 +356,41 @@ const Cards = () => {
     5: cardsLevelFive,
   };
 
-
-
-
   // Load tasks and the selected task from localStorage on component mount
-useEffect(() => {
-  const { tasks, selectedTask } = loadFromLocalStorage();
-  if (Array.isArray(tasks)) {
-    setAvailableTasks(tasks.length > 0 ? tasks : cardsLevelOne);
-  } else {
-    setAvailableTasks(cardsLevelOne);
-  }
-  setSelectedTask(selectedTask || { level: 1 });
-}, []);
+  useEffect(() => {
+    const { tasks, selectedTask } = loadFromLocalStorage();
+    if (Array.isArray(tasks)) {
+      setAvailableTasks(tasks.length > 0 ? tasks : cardsLevelOne);
+    } else {
+      setAvailableTasks(cardsLevelOne);
+    }
+    setSelectedTask(selectedTask || { level: 1 });
+  }, []);
 
+  const getRandomTask = (pusher) => {
+    if (!Array.isArray(availableTasks) || availableTasks.length === 0) {
+      onOpen();
+      return;
+    }
 
-const getRandomTask = (pusher) => {
-  if (!Array.isArray(availableTasks) || availableTasks.length === 0) {
-    onOpen();
-    return;
-  }
+    // Choose a random task
+    const randomIndex = Math.floor(Math.random() * availableTasks.length);
+    const task = availableTasks[randomIndex];
 
-  // Choose a random task
-  const randomIndex = Math.floor(Math.random() * availableTasks.length);
-  const task = availableTasks[randomIndex];
+    // Update rotation based on pusher (king or queen)
+    const rotationAngle = pusher === "king" ? 4380 : -4380;
+    setRotation(rotation + rotationAngle);
 
-  // Update rotation based on pusher (king or queen)
-  const rotationAngle = pusher === "king" ? -4380 : 4380;
-  setRotation(rotation + rotationAngle);
+    // Remove the selected task from the available tasks list
+    const newAvailableTasks = availableTasks.filter(
+      (_, index) => index !== randomIndex
+    );
 
-  // Remove the selected task from the available tasks list
-  const newAvailableTasks = availableTasks.filter(
-    (_, index) => index !== randomIndex
-  );
+    setSelectedTask(task);
+    setAvailableTasks(newAvailableTasks);
 
-  setSelectedTask(task);
-  setAvailableTasks(newAvailableTasks);
-
-  saveToLocalStorage(newAvailableTasks, task);
-};
+    saveToLocalStorage(newAvailableTasks, task);
+  };
 
   // const getRandomTask = (pusher) => {
   //   if (availableTasks.length === 0) {
@@ -455,25 +433,24 @@ const getRandomTask = (pusher) => {
 
   const handleOnClose = () => {
     const nextLevel = selectedTask?.level + 1;
-  
+
     // Retrieve tasks for the next level from the levelMap
     const nextLevelTasks = levelMap[nextLevel] || [];
-  
+
     if (nextLevelTasks.length > 0) {
       setAvailableTasks(nextLevelTasks);
       setSelectedTask({ level: nextLevel }); // Reset selectedTask for the next level
     } else {
       console.error("No tasks available for the next level");
     }
-  
+
     // Close the modal
     onClose();
   };
-  
 
-  
   return (
     <Box
+    {...OPACITY_ON_LOAD}
       overflow={"auto"}
       bg={selectedTask?.level === 2 ? "#121212" : "#121212"}
       flexDirection={"column"}
@@ -507,8 +484,13 @@ const getRandomTask = (pusher) => {
 
       {/* Card with dynamic rotation */}
       <Box
-        transition={"all 5.5s ease"} // Smooth transition for the rotation
-        transform={`rotate(${rotation}deg)`} // Apply rotation state
+      
+        // animation="smoothRotate 8s ease-in-out "
+        willChange="transform"
+        transition={"transform 5.5s ease-in-out"} // Longer duration for smoother effect
+        transform={`rotate(${rotation}deg)`}
+        backfaceVisibility="hidden"
+        transformStyle="preserve-3d"
         position={"relative"}
         p={2}
         display={"flex"}
@@ -520,8 +502,6 @@ const getRandomTask = (pusher) => {
         rounded={"xl"}
         w={250}
         h={350}
-        
-       
         bg={
           selectedTask?.level === 1
             ? "#fff" // Background color for level 1
@@ -533,8 +513,7 @@ const getRandomTask = (pusher) => {
             ? "#880808" // Background color for level 4
             : "#000" // Background color for level 5 or higher
         }
-
-        className={selectedTask?.level === 2 ? "gold":null}
+        className={selectedTask?.level === 2 ? "gold" : null}
 
         // bg={" linear-gradient(316deg, #310e68 0%, #5f0f40 74%)"}
 
@@ -568,9 +547,12 @@ const getRandomTask = (pusher) => {
             fontWeight={600}
             fontSize={"2xl"}
             zIndex={2}
-            backgroundImage={selectedTask?.level === 5 ?"repeating-linear-gradient(to right, #a2682a 0%, #be8c3c 8%, #be8c3c 18%, #d3b15f 27%, #faf0a0 35%, #ffffc2 40%, #faf0a0 50%, #d3b15f 58%, #be8c3c 67%, #b17b32 77%, #bb8332 83%, #d4a245 88%, #e1b453 93%, #a4692a 100%)":""}
+            backgroundImage={
+              selectedTask?.level === 5
+                ? "repeating-linear-gradient(to right, #a2682a 0%, #be8c3c 8%, #be8c3c 18%, #d3b15f 27%, #faf0a0 35%, #ffffc2 40%, #faf0a0 50%, #d3b15f 58%, #be8c3c 67%, #b17b32 77%, #bb8332 83%, #d4a245 88%, #e1b453 93%, #a4692a 100%)"
+                : ""
+            }
             bgClip="text"
-
             color={
               selectedTask?.level === 1
                 ? "#000" // Background color for level 1
@@ -604,10 +586,10 @@ const getRandomTask = (pusher) => {
                 : "#880808" // Background color for level 5 or higher
             }
           >
-            LAST TASK TWICE
+            {selectedTask?.task && "LAST TASK TWICE"}
           </Text>
 
-<Arrow/>
+          <Arrow />
         </Box>
         <Image
           transform={"rotate(150deg)"}
@@ -618,9 +600,7 @@ const getRandomTask = (pusher) => {
           src={floral}
           opacity={1.5}
         />
-
       </Box>
-      
 
       {/* King Button */}
       <Box
@@ -642,7 +622,6 @@ const getRandomTask = (pusher) => {
         <GiImperialCrown fontSize={47} />
       </Box>
 
-      
       <LevelCompleteModal
         level={selectedTask?.level}
         onClose={handleOnClose}

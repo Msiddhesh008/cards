@@ -18,7 +18,7 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-
+<Box bg={'#121212'}>
     <Router>
       <Routes>
   
@@ -27,6 +27,7 @@ function App() {
       
       </Routes>
       </Router>
+      </Box>
 
   )
 }
