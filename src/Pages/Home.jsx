@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Box, Button, HStack, Image, Text } from '@chakra-ui/react'
-// import frame from './assets/frametwo.png'
+import heart from '../assets/heart1.png'
 import vector from '../assets/vector.png'
 import { useNavigate } from 'react-router-dom'
 
@@ -31,7 +31,6 @@ function Home() {
   backgroundSize="100px 100px"
 >
 
-  {/* <Image position={'absolute'} src={frame} left={0} top={0} w={'100%'} h={'100%'} /> */}
 
 
 {/* <HStack mt={20} justifyContent={'center'}  w={'100%'} >
@@ -55,6 +54,10 @@ onClick={()=>navigate("/cards/home")}
 
 <HStack onClick={()=>navigate("/cards/home")} justifyContent={'center'} bg={'#000'} >
   <Text justifyContent={'center'} as={'span'} fontSize={'5xl'} fontWeight={400} color={"#fff"} className='sofadi-one-regular '><span style={{color:"#900101", fontWeight:"700", fontFamily:"montserrat"}}>Ero</span>cards</Text>
+</HStack>
+
+<HStack mt={16} w={'100%'}>
+<Image src={heart}  w={"90%"}  />
 </HStack>
 
   <Box flexDirection={'column'} position={'absolute'} alignItems={'center'} display={'flex'} justifyContent={'center'}  bottom={0} left={0} w={"100%"} >
