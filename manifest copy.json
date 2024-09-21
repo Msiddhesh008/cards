@@ -1,0 +1,12 @@
+{
+  "theme_color": "#000000",
+  "background_color": "#7c0000",
+  "orientation": "portrait",
+  "display": "standalone",
+  "dir": "auto",
+  "lang": "en-US",
+  "name": "Erocard",
+  "short_name": "EC",
+  "start_url": "https://msiddhesh008.github.io/cards/",
+  "scope": "https://msiddhesh008.github.io/cards/"
+}
