@@ -1,10 +1,20 @@
-import { Box, Button, Image, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  HStack,
+  Image,
+  Text,
+  VStack,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import floral from "../assets/floral.png";
 import { GiImperialCrown, GiQueenCrown } from "react-icons/gi";
 import LevelCompleteModal from "./LevelCompleteModal";
 import Arrow from "../Components/Arrow";
 import { OPACITY_ON_LOAD } from "../Components/animations";
+import { TbWaveSawTool } from "react-icons/tb";
+import { MdOutlineSwapCalls } from "react-icons/md";
 
 // Function to save tasks and the selected task to localStorage
 const saveToLocalStorage = (tasks, selectedTask) => {
@@ -28,6 +38,12 @@ const Cards = () => {
   const [availableTasks, setAvailableTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState({ level: 1 });
   const [rotation, setRotation] = useState(0); // State for rotation angle
+
+  const [kingLifeLine, setKingLifeLine] = useState(2);
+  const [queenLifeLine, setQueenLifeLine] = useState(2);
+
+  const [queenSwap, setQueenSwap] = useState(2);
+  const [kingSwap, setKingSwap] = useState(2);
 
   const cardsLevelOne = [
     {
@@ -356,6 +372,10 @@ const Cards = () => {
     5: cardsLevelFive,
   };
 
+  useEffect(() => {
+    console.log(kingLifeLine); // Logs whenever kingLifeLine changes
+  }, [kingLifeLine]);
+
   // Load tasks and the selected task from localStorage on component mount
   useEffect(() => {
     const { tasks, selectedTask } = loadFromLocalStorage();
@@ -448,9 +468,35 @@ const Cards = () => {
     onClose();
   };
 
+  const decreaseKingLifeLine = () => {
+    setKingLifeLine((prev) => (prev > 0 ? prev - 1 : 0)); // Preventing the life line from going negative
+    console.log(kingLifeLine);
+  };
+
+
+  const swapKingtask = () => {
+    setKingSwap((prev) => (prev > 0 ? prev - 1 : 0)); // Preventing the life line from going negative
+   
+  };
+
+
+
+  const decreaseQueenLifeLine = () => {
+    setQueenLifeLine((prev) => (prev > 0 ? prev - 1 : 0)); // Preventing the life line from going negative
+    console.log(kingLifeLine);
+  };
+
+
+  const swapQueentask = () => {
+    setQueenSwap((prev) => (prev > 0 ? prev - 1 : 0)); // Preventing the life line from going negative
+   
+  };
+
+
+
   return (
     <Box
-    {...OPACITY_ON_LOAD}
+      {...OPACITY_ON_LOAD}
       overflow={"auto"}
       bg={selectedTask?.level === 2 ? "#121212" : "#121212"}
       flexDirection={"column"}
@@ -462,29 +508,101 @@ const Cards = () => {
       h={"100vh"}
       w={"100vw"}
     >
-      {/* Queen Button */}
-      <Box
-        onClick={() => getRandomTask("queen")}
-        transition={"all 0.5s"}
-        transform={"rotate(180deg)"}
-        _focus={{ bg: "#000", outline: "none", border: "none" }}
-        _hover={{ bg: "#000", outline: "none", border: "none" }}
-        shadow={"md"}
-        className="sofadi-one-regular"
-        size={"lg"}
-        py={8}
-        px={8}
-        rounded={"full"}
-        color={"#fff"}
-        bg="#7c0000"
-        id="btn"
-      >
-        <GiQueenCrown fontSize={47} />
-      </Box>
+      <HStack w={"100%"} justifyContent={"space-around"}>
+        <VStack position={"relative"}>
+          <Button
+            position={"absolute"}
+            bottom={-8}
+            p={2}
+            pt={0.5}
+            pb={0.5}
+            fontSize={"sm"}
+            rounded={"full"}
+            bg={"white"}
+            fontWeight={600}
+            as={"span"}
+            color={'#7c0000'}
+          >
+            {queenLifeLine}
+          </Button>
+          <Box
+            //   as="button"
+            onClick={decreaseQueenLifeLine}
+            transition={"all 1.5s"}
+            _focus={{ bg: "#000", outline: "none", border: "none" }}
+            _hover={{ bg: "#000", outline: "none", border: "none" }}
+            shadow={"md"}
+            className="sofadi-one-regular"
+            size={"lg"}
+            py={4}
+            px={4}
+            rounded={"full"}
+            color={"#fff"}
+            bg="#7c0000"
+            id="btn"
+          >
+            <TbWaveSawTool fontSize={28} />
+          </Box>
+        </VStack>
+        {/* Queen Button */}
+        <Box
+          onClick={() => getRandomTask("queen")}
+          transition={"all 0.5s"}
+          transform={"rotate(180deg)"}
+          _focus={{ bg: "#000", outline: "none", border: "none" }}
+          _hover={{ bg: "#000", outline: "none", border: "none" }}
+          shadow={"md"}
+          className="sofadi-one-regular"
+          size={"lg"}
+          py={8}
+          px={8}
+          rounded={"full"}
+          color={"#fff"}
+          bg="#7c0000"
+          id="btn"
+        >
+          <GiQueenCrown fontSize={47} />
+        </Box>
+
+        <VStack position={"relative"}>
+          <Button
+            position={"absolute"}
+            bottom={-8}
+            p={2}
+            pt={0.5}
+            pb={0.5}
+            fontSize={"sm"}
+            rounded={"full"}
+            bg={"white"}
+            fontWeight={600}
+            as={"span"}
+            color={'#7c0000'}
+          >
+            {queenSwap}
+          </Button>
+          <Box
+            //   as="button"
+            onClick={swapQueentask}
+            transition={"all 1.5s"}
+            _focus={{ bg: "#000", outline: "none", border: "none" }}
+            _hover={{ bg: "#000", outline: "none", border: "none" }}
+            shadow={"md"}
+            className="sofadi-one-regular"
+            size={"lg"}
+            py={4}
+            px={4}
+            rounded={"full"}
+            color={"#fff"}
+            bg="#7c0000"
+            id="btn"
+          >
+            <MdOutlineSwapCalls fontSize={28} />
+          </Box>
+        </VStack>
+      </HStack>
 
       {/* Card with dynamic rotation */}
       <Box
-      
         // animation="smoothRotate 8s ease-in-out "
         willChange="transform"
         transition={"transform 5.5s ease-in-out"} // Longer duration for smoother effect
@@ -589,7 +707,7 @@ const Cards = () => {
             {selectedTask?.task && "LAST TASK TWICE"}
           </Text>
 
-          <Arrow />
+          {/* <Arrow /> */}
         </Box>
         <Image
           transform={"rotate(150deg)"}
@@ -603,24 +721,99 @@ const Cards = () => {
       </Box>
 
       {/* King Button */}
-      <Box
-        //   as="button"
-        onClick={() => getRandomTask("king")}
-        transition={"all 1.5s"}
-        _focus={{ bg: "#000", outline: "none", border: "none" }}
-        _hover={{ bg: "#000", outline: "none", border: "none" }}
-        shadow={"md"}
-        className="sofadi-one-regular"
-        size={"lg"}
-        py={8}
-        px={8}
-        rounded={"full"}
-        color={"#fff"}
-        bg="#7c0000"
-        id="btn"
-      >
-        <GiImperialCrown fontSize={47} />
-      </Box>
+
+      <HStack w={"100%"} justifyContent={"space-around"}>
+        <VStack position={"relative"}>
+          <Button
+            position={"absolute"}
+            top={-8}
+            p={2}
+            pt={0.5}
+            pb={0.5}
+            fontSize={"sm"}
+            rounded={"full"}
+            bg={"white"}
+            fontWeight={600}
+            as={"span"}
+            color={'#7c0000'}
+          >
+            {kingSwap}
+          </Button>
+          <Box
+            //   as="button"
+            onClick={swapKingtask}
+            transition={"all 1.5s"}
+            _focus={{ bg: "#000", outline: "none", border: "none" }}
+            _hover={{ bg: "#000", outline: "none", border: "none" }}
+            shadow={"md"}
+            className="sofadi-one-regular"
+            size={"lg"}
+            py={4}
+            px={4}
+            rounded={"full"}
+            color={"#fff"}
+            bg="#7c0000"
+            id="btn"
+          >
+            <MdOutlineSwapCalls fontSize={28} />
+          </Box>
+        </VStack>
+
+        <Box
+          //   as="button"
+          onClick={() => getRandomTask("king")}
+          transition={"all 1.5s"}
+          _focus={{ bg: "#000", outline: "none", border: "none" }}
+          _hover={{ bg: "#000", outline: "none", border: "none" }}
+          shadow={"md"}
+          className="sofadi-one-regular"
+          size={"lg"}
+          py={8}
+          px={8}
+          rounded={"full"}
+          color={"#fff"}
+          bg="#7c0000"
+          id="btn"
+        >
+          <GiImperialCrown fontSize={47} />
+        </Box>
+
+        <VStack position={"relative"}>
+          <Button
+            position={"absolute"}
+            top={-8}
+            p={2}
+            pt={0.5}
+            pb={0.5}
+            fontSize={"sm"}
+            rounded={"full"}
+            bg={"white"}
+            fontWeight={600}
+            as={"span"}
+            color={'#7c0000'}
+          >
+            {kingLifeLine}
+          </Button>
+          <Box
+            //   as="button"
+            onClick={decreaseKingLifeLine}
+            transition={"all 1.5s"}
+            _focus={{ bg: "#000", outline: "none", border: "none" }}
+            _hover={{ bg: "#000", outline: "none", border: "none" }}
+            shadow={"md"}
+            className="sofadi-one-regular"
+            size={"lg"}
+            py={4}
+            px={4}
+            rounded={"full"}
+            color={"#fff"}
+            bg="#7c0000"
+            id="btn"
+          >
+            <TbWaveSawTool fontSize={28} />
+          </Box>
+        </VStack>
+      </HStack>
 
       <LevelCompleteModal
         level={selectedTask?.level}
