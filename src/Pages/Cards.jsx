@@ -305,61 +305,61 @@ const Cards = () => {
       id: 1,
 
       level: 5,
-      task: "Complete the monthly financial report",
+      task: "Roleplay 👨🏻‍🎤 a fantasy of partners choice",
       elseTask: "Review last month's budget allocations",
     },
     {
       id: 2,
       level: 5,
-      task: "Prepare presentation for client meeting",
+      task: "Remove an item of clothing 🧥 for the rest of the game",
       elseTask: "Email the final draft to the marketing team",
     },
     {
       id: 3,
       level: 5,
-      task: "Fix UI bug on the user profile page",
+      task: "Blindfold 🎗️ yourself and guess which part of your partner’s body you’re touching. 👉",
       elseTask: "Cross-test on different browsers for compatibility",
     },
     {
       id: 4,
       level: 5,
-      task: "Respond to customer feedback on support tickets",
+      task: "Kiss 💋 your partner passionately, like the climax of a movie. 🎬",
       elseTask: "Follow up on unresolved high-priority issues",
     },
     {
       id: 5,
       level: 5,
-      task: "Organize team building event for next month",
+      task: "Play the rest of the game naked🦵",
       elseTask: "Book a venue and send out invitations",
     },
     {
       id: 6,
       level: 5,
-      task: "Update product documentation with new features",
-      elseTask: "Review technical changes with the dev team",
+      task: "Use 👅 each other as a human plate — whipped ice cream 🍧 , chocolate sauce 🍫, whatever takes your fancy!",
+      elseTask: "Let ur partner lick👅 ice cream from any part of ur body as he/she wants💖",
     },
     {
       id: 7,
       level: 5,
-      task: "Analyze social media engagement metrics",
+      task: "Allow ur partner to  Blind fold and make love 💖 as he/she want💏",
       elseTask: "Draft report on insights and growth strategies",
     },
     {
       id: 8,
       level: 5,
-      task: "Backup database and archive old data",
+      task: "Allow ur partner to role ice cube on ur body for 10 min ⏰",
       elseTask: "Verify that backups were successfully completed",
     },
     {
       id: 9,
       level: 5,
-      task: "Schedule a one-on-one with team members",
+      task: "Dedicate 15 minutes ⏰ to browsing Fikfap with disciplined focus, ensuring purposeful and controlled engagement throughout.🧘",
       elseTask: "Discuss project progress and individual goals",
     },
     {
       id: 10,
       level: 5,
-      task: "Research industry trends for quarterly newsletter",
+      task: "Give pleasure to your partner untill he/she moans💞",
       elseTask: "Draft the outline for the next publication",
     },
   ];
@@ -607,8 +607,8 @@ const Cards = () => {
         willChange="transform"
         transition={"transform 5.5s ease-in-out"} // Longer duration for smoother effect
         transform={`rotate(${rotation}deg)`}
-        backfaceVisibility="hidden"
-        transformStyle="preserve-3d"
+        backfacevisibility="hidden"
+        transformstyle="preserve-3d"
         position={"relative"}
         p={2}
         display={"flex"}
