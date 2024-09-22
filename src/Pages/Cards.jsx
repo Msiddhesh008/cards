@@ -372,9 +372,6 @@ const Cards = () => {
     5: cardsLevelFive,
   };
 
-  useEffect(() => {
-    console.log(kingLifeLine); // Logs whenever kingLifeLine changes
-  }, [kingLifeLine]);
 
   // Load tasks and the selected task from localStorage on component mount
   useEffect(() => {
@@ -452,7 +449,12 @@ const Cards = () => {
   // };
 
   const handleOnClose = () => {
-    const nextLevel = selectedTask?.level + 1;
+    let nextLevel = selectedTask?.level + 1;
+
+      // If the level is 5, reset back to level 1
+  if (selectedTask?.level === 5) {
+    nextLevel = 1;
+  }
 
     // Retrieve tasks for the next level from the levelMap
     const nextLevelTasks = levelMap[nextLevel] || [];
@@ -642,6 +644,8 @@ const Cards = () => {
           p={2.5}
           w={"100%"}
           h={"100%"}
+          overflowX={'scroll'}
+          pb={24}
           border={
             selectedTask?.level === 1
               ? "1.5px solid #b71540" // Background color for level 1
@@ -657,13 +661,14 @@ const Cards = () => {
           display={"flex"}
           flexDirection={"column"}
           justifyContent={"start"}
+          
         >
           <Text
             as={"span"}
             textTransform={"uppercase"}
             className="sofadi-one-regular"
             fontWeight={600}
-            fontSize={"2xl"}
+            fontSize={"xl"}
             zIndex={2}
             backgroundImage={
               selectedTask?.level === 5
@@ -689,7 +694,7 @@ const Cards = () => {
             as={"span"}
             textTransform={"capitalize"}
             className="sofadi-one-regular"
-            fontSize={"xl"}
+            fontSize={"lg"}
             zIndex={2}
             fontWeight={600}
             color={

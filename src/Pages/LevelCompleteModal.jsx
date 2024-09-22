@@ -95,6 +95,9 @@ import {
               {/* <Text fontSize={'3xl'} color={level === 1 ? "#fff" : "#000"}> 
                 {getQuoteForLevel()} 
               </Text> */}
+
+              
+
             </ModalBody>
           </ModalContent>
         </Modal>

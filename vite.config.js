@@ -16,18 +16,36 @@ export default defineConfig({
         enabled: true,
       },
       manifest: {
-  "theme_color": "#000000",
-  "background_color": "#7c0000",
-  "orientation": "portrait",
-  "display": "standalone",
-  "dir": "auto",
-  "lang": "en-US",
-  "name": "Erocard",
-  "short_name": "EC",
-  "start_url": "https://msiddhesh008.github.io/cards/",
-  "scope": "https://msiddhesh008.github.io/cards/"
-}
-,
+        name: "Erocard",
+        short_name: "EC",
+        description: "Join your community now",
+        start_url: "/",
+        display: "standalone",
+        theme_color: "#222935",
+        background_color: "#222935",
+        icons: [
+          {
+            src: "/icon-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "/icon-256x256.png",
+            sizes: "256x256",
+            type: "image/png",
+          },
+          {
+            src: "/icon-384x384.png",
+            sizes: "384x384",
+            type: "image/png",
+          },
+          {
+            src: "/icon-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      },
     }),
   ],
   base: "/cards/",
